@@ -12,18 +12,18 @@ public class ScrollBar extends HudComponent {
 
 	private static final int SLIDER_WIDTH = 4, SLIDER_HEIGHT = 6, PEICE_HEIGHT = 4;
 	private static final int NORMAL = 0, HOVERED = 1, CLICKED = 2;
-	private int height, status;
+	private int aHeight, aWidth, status;
 	private int value, maxValue;
 	private double step;
 	private BufferedImage[] sprites;
 	private BufferedImage[] buttonSprites;
 
 	public ScrollBar(int x, int y, int height, int maxValue, int size) {
-		super(x, y, 0, 0, size);
+		super(x, y, height * PEICE_HEIGHT * size, SLIDER_WIDTH * size, size);
 		this.status = NORMAL;
-		this.size = size;
 		this.maxValue = maxValue;
 		this.sprites = new BufferedImage[Textures.getSpriteSheet("scrollbar").length];
+		this.step = (double) (this.height - (PEICE_HEIGHT * size) / 2D) / (double) maxValue;
 		for (int i = 0; i < Textures.getSpriteSheet("scrollbar").length; i++) {
 			this.sprites[i] = Textures.getSpriteSheet("scrollbar")[i][0];
 		}
@@ -31,12 +31,9 @@ public class ScrollBar extends HudComponent {
 		for (int i = 0; i < Textures.getSpriteSheet("scrollbarButton").length; i++) {
 			this.buttonSprites[i] = Textures.getSpriteSheet("scrollbarButton")[i][0];
 		}
-		this.height = height * PEICE_HEIGHT * size;
-		step = (double) (this.height - (PEICE_HEIGHT * size) / 2D) / (double) maxValue;
 	}
 
-	public void update(int ox, int oy) {
-	}
+	public void update(int ox, int oy) {}
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		int sSize = PEICE_HEIGHT * size;

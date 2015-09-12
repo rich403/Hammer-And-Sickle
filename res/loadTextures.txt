@@ -6,6 +6,7 @@ hudIcons,12,8
 menubg
 scrollbar,4,4
 scrollbarButton,4,6
+box,4,4
 -sprite-
 char,32,32
 -tileset-
