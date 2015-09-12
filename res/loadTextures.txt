@@ -1,0 +1,11 @@
+-background-
+-gui-
+title
+mainMenuButtons,64,13
+hudIcons,12,8
+menubg
+scrollbar,4,4
+scrollbarButton,4,6
+-sprite-
+char,32,32
+-tileset-

@@ -1,0 +1,101 @@
+package net.richstudios.hammerandsickle.gamestate;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import net.richstudios.hammerandsickle.audio.Sound;
+import net.richstudios.hammerandsickle.gamestate.transitions.CheckeredTransitonState;
+import net.richstudios.hammerandsickle.gamestate.transitions.CloseTransitionState;
+import net.richstudios.hammerandsickle.graphics.Textures;
+import net.richstudios.hammerandsickle.graphics.hud.Hud;
+import net.richstudios.hammerandsickle.graphics.hud.HudAction;
+import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
+import net.richstudios.hammerandsickle.graphics.hud.MainMenuButton;
+import net.richstudios.hammerandsickle.graphics.hud.ScrollBar;
+import net.richstudios.hammerandsickle.reference.References;
+import net.richstudios.hammerandsickle.utilites.InputHandler;
+
+public class MenuState extends GameState {
+	
+	private Hud hud;
+
+	public MenuState(GameStateManager gsm) {
+		super(gsm);
+		Sound.loop("revolt");
+		MainMenuButton[] buttons = new MainMenuButton[4];
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new MainMenuButton(References.WIDTH / 2 - MainMenuButton.DEFAULT_WIDTH, References.HEIGHT / 2 - MainMenuButton.DEFAULT_HEIGHT + (MainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
+			if (i % 2 == 0)
+				buttons[i].setEnabled(false);
+		}
+		buttons[0].addAction(new HudAction() {
+			public void actionPerformed(HudComponent comp) {
+				newGame();
+			}
+		});
+		buttons[1].addAction(new HudAction() {
+			public void actionPerformed(HudComponent comp) {
+				loadGame();
+			}
+		});
+		buttons[2].addAction(new HudAction() {
+			public void actionPerformed(HudComponent comp) {
+				help();
+			}
+		});
+		buttons[3].addAction(new HudAction() {
+			public void actionPerformed(HudComponent comp) {
+				exit();
+			}
+		});
+		ScrollBar sb = new ScrollBar(0, 0, 10, 20, 2);
+		sb.setEnabled(false);
+		
+		hud = new Hud();
+		for (int i = 0; i < buttons.length; i++) {
+			hud.add(buttons[i]);
+		}
+		hud.add(sb);
+		
+	}
+
+	private void newGame() {
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		gsm.set(cts);
+	}
+
+	private void loadGame() {
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		gsm.set(cts);
+	}
+
+	private void help() {
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		gsm.set(cts);
+	}
+
+	private void exit() {
+		CloseTransitionState cts = new CloseTransitionState(gsm, this);
+		gsm.set(cts);
+	}
+
+	public void init() {
+
+	}
+
+	public void update() {
+		hud.update();
+	}
+
+	public void draw(Graphics2D g) {
+		g.drawImage(Textures.getTexture("menubg"), 0, 0, null);
+		BufferedImage title = Textures.getTexture("title");
+		g.drawImage(title, References.WIDTH / 2 - title.getWidth() / 2, References.HEIGHT / 20, null);
+		hud.draw(g);
+	}
+
+	public void handleInput(InputHandler input) {
+		hud.handleInput(input);
+	}
+
+}
