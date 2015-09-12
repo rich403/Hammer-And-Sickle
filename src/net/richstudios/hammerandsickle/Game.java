@@ -28,15 +28,15 @@ public class Game extends JPanel implements Runnable {
 	private Graphics2D g;
 
 	private GameStateManager gsm;
-	
+
 	private InputHandler input;
-	
+
 	private JFrame frame;
-	
+
 	public static void main(String[] args) {
 		new Game();
 	}
-	
+
 	public Game() {
 		super();
 		frame = new JFrame(References.NAME + " | " + References.VERSION);
@@ -47,13 +47,14 @@ public class Game extends JPanel implements Runnable {
 		icons.add(Textures.icon32x);
 		icons.add(Textures.icon64x);
 		frame.setIconImages(icons);
-		frame.setSize(References.WIDTH * References.SCALE, References.HEIGHT * References.SCALE);
+		frame.setSize(References.WIDTH * References.SCALE, References.HEIGHT
+				* References.SCALE);
 		frame.setContentPane(this);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		requestFocus();
 	}
-	
+
 	public void addNotify() {
 		super.addNotify();
 		if (thread == null) {
@@ -63,7 +64,8 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	private void init() {
-		image = new BufferedImage(References.WIDTH, References.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(References.WIDTH, References.HEIGHT,
+				BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		input = new InputHandler(this);
 		Sound.init();
@@ -75,20 +77,20 @@ public class Game extends JPanel implements Runnable {
 
 	public void run() {
 		init();
-	
+
 		long start;
 		long elapsed;
 		long wait;
-	
+
 		while (running) {
-	
+
 			start = System.nanoTime();
-	
+
 			update();
 			draw();
-	
+
 			elapsed = System.nanoTime() - start;
-	
+
 			wait = targetTime - elapsed / 1000000;
 			try {
 				if (wait > 0)
@@ -109,14 +111,15 @@ public class Game extends JPanel implements Runnable {
 
 	private void draw() {
 		gsm.draw(g);
-		if(Settings.debug) {
+		if (Settings.debug) {
 			int tx = input.mouseX / References.SCALE;
 			int ty = input.mouseY / References.SCALE;
 			g.setColor(Color.PINK);
 			g.fillRect(tx, ty, 1, 1);
 		}
 		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, References.WIDTH * References.SCALE, References.HEIGHT * References.SCALE, null);
+		g2.drawImage(image, 0, 0, References.WIDTH * References.SCALE,
+				References.HEIGHT * References.SCALE, null);
 		g2.setColor(Color.blue);
 		g2.dispose();
 	}

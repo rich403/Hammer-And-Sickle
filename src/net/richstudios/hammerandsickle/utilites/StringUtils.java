@@ -8,13 +8,15 @@ public class StringUtils {
 
 	public static int getStringHeight(Font f, String s) {
 		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		FontRenderContext frc = new FontRenderContext(affinetransform, true,
+				true);
 		return (int) (f.getStringBounds(s, frc).getHeight());
 	}
 
 	public static int getStringWidth(Font f, String s) {
 		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		FontRenderContext frc = new FontRenderContext(affinetransform, true,
+				true);
 		return (int) (f.getStringBounds(s, frc).getWidth());
 	}
 

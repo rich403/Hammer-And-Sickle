@@ -24,7 +24,8 @@ public class CloseTransitionState extends TransitionState {
 		super(gsm, prevState, null);
 		this.totalTime = (float) (0.5 * References.FPS);
 		rectangles = new ArrayList<Rectangle>();
-		this.heightInterval = Math.round(((double) References.HEIGHT / 2D) / (double) this.totalTime);
+		this.heightInterval = Math.round(((double) References.HEIGHT / 2D)
+				/ (double) this.totalTime);
 		Sound.stopAll();
 	}
 
@@ -33,7 +34,8 @@ public class CloseTransitionState extends TransitionState {
 		if (status == CLOSING) {
 			if (timer == 1) {
 				rectangles.add(0, new Rectangle(0, 0, References.WIDTH, 0));
-				rectangles.add(1, new Rectangle(0, References.HEIGHT, References.WIDTH, 0));
+				rectangles.add(1, new Rectangle(0, References.HEIGHT,
+						References.WIDTH, 0));
 			} else if (timer <= totalTime) {
 				rectangles.get(0).height += heightInterval;
 				rectangles.get(1).height += heightInterval;

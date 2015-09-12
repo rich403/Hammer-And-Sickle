@@ -34,14 +34,16 @@ public class Hud {
 
 	public void update() {
 		for (HudComponent c : components) {
-			if(!c.enabled) continue;
+			if (!c.enabled)
+				continue;
 			c.update(x, y);
 		}
 	}
 
 	public void handleInput(InputHandler input) {
 		for (HudComponent c : components) {
-			if(!c.enabled) continue;
+			if (!c.enabled)
+				continue;
 			c.checkInteraction(input, x, y);
 		}
 	}

@@ -25,17 +25,20 @@ public class TextBox extends Box {
 		reloadImage();
 	}
 
-	public void update(int ox, int oy) {}
-	
+	public void update(int ox, int oy) {
+	}
+
 	public void reloadImage() {
-		textImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
+		textImage = new BufferedImage(this.width, this.height,
+				BufferedImage.TYPE_INT_ARGB);
 		if (!text.isEmpty()) {
 			String[] textSplit = text.split("\n");
 			Graphics g = textImage.getGraphics();
 			g.setFont(font);
 			g.setColor(Color.YELLOW);
 			for (int i = 0; i < textSplit.length; i++) {
-				int dy = toy + StringUtils.getStringHeight(font, textSplit[i]) + StringUtils.getStringHeight(font, textSplit[i]) * i;
+				int dy = toy + StringUtils.getStringHeight(font, textSplit[i])
+						+ StringUtils.getStringHeight(font, textSplit[i]) * i;
 				g.drawString(textSplit[i], tox, dy);
 			}
 			g.dispose();
@@ -43,21 +46,21 @@ public class TextBox extends Box {
 	}
 
 	public void setText(String text) {
-		if(!this.text.equals(text)) {
+		if (!this.text.equals(text)) {
 			this.text = text;
 			reloadImage();
 		}
 	}
 
 	public void setColor(Color color) {
-		if(!this.color.equals(color)) {
+		if (!this.color.equals(color)) {
 			this.color = color;
 			reloadImage();
 		}
 	}
 
 	public void setFont(Font font) {
-		if(!this.font.equals(font)) {
+		if (!this.font.equals(font)) {
 			this.font = font;
 			reloadImage();
 		}
@@ -66,12 +69,13 @@ public class TextBox extends Box {
 	public void draw(Graphics2D g, int ox, int oy) {
 		super.draw(g, ox, oy);
 		if (textImage != null && !text.isEmpty()) {
-			g.drawImage(textImage, x + ox + 4, y + oy + 4, textImage.getWidth() * size, textImage.getHeight() * size, null);
+			g.drawImage(textImage, x + ox + 4, y + oy + 4, textImage.getWidth()
+					* size, textImage.getHeight() * size, null);
 		}
 	}
 
 	public void setTextOffset(int x, int y) {
-		if((this.tox != x) && (this.toy != y)) {
+		if ((this.tox != x) && (this.toy != y)) {
 			this.tox = x;
 			this.toy = y;
 			reloadImage();

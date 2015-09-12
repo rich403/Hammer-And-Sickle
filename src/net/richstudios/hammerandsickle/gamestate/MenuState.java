@@ -17,18 +17,21 @@ import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
 public class MenuState extends GameState {
-	
+
 	private Hud hud;
 	private static int menuX = References.WIDTH - (References.WIDTH / 20);
 	private TextBox box;
 	private ScrollBar sb;
-	
+
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Sound.loop("revolt");
 		MainMenuButton[] buttons = new MainMenuButton[4];
 		for (int i = 0; i < buttons.length; i++) {
-			buttons[i] = new MainMenuButton(menuX - MainMenuButton.DEFAULT_WIDTH * 2, References.HEIGHT / 2 - MainMenuButton.DEFAULT_HEIGHT + (MainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
+			buttons[i] = new MainMenuButton(menuX
+					- MainMenuButton.DEFAULT_WIDTH * 2, References.HEIGHT / 2
+					- MainMenuButton.DEFAULT_HEIGHT
+					+ (MainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
 		}
 		buttons[0].addAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
@@ -50,33 +53,33 @@ public class MenuState extends GameState {
 				exit();
 			}
 		});
-		
+
 		hud = new Hud();
 		for (int i = 0; i < buttons.length; i++) {
 			hud.add(buttons[i]);
 		}
 		box = new TextBox(0, 0, 20, 20, 2);
-		box.setText("This is a textBox\n"
-				+ "1\n"
-				+ "2\n"
-				+ "3");
+		box.setText("This is a textBox\n" + "1\n" + "2\n" + "3");
 		sb = new ScrollBar(20 * 4 * 2, 0, 20, 20, 2);
 		hud.add(box);
 		hud.add(sb);
 	}
 
 	private void newGame() {
-		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this,
+				this);
 		gsm.set(cts);
 	}
 
 	private void loadGame() {
-		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this,
+				this);
 		gsm.set(cts);
 	}
 
 	private void help() {
-		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this,
+				this);
 		gsm.set(cts);
 	}
 
@@ -97,7 +100,8 @@ public class MenuState extends GameState {
 	public void draw(Graphics2D g) {
 		g.drawImage(Textures.getTexture("menubg"), 0, 0, null);
 		BufferedImage title = Textures.getTexture("title");
-		g.drawImage(title, menuX - title.getWidth(), References.HEIGHT / 20, null);
+		g.drawImage(title, menuX - title.getWidth(), References.HEIGHT / 20,
+				null);
 		hud.draw(g);
 	}
 
