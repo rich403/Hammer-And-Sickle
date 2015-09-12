@@ -9,18 +9,14 @@ public class Box extends HudComponent {
 
 	public static final int SIZE = 4;
 	
-	private int aWidth, aHeight;
-	private BufferedImage[][] sprites;
+	protected int aWidth, aHeight;
+	protected BufferedImage[][] sprites;
 	
 	public Box(int x, int y, int width, int height, int size) {
 		super(x, y, width * SIZE, height * SIZE, size);
 		this.aWidth = width;
 		this.aHeight = height;
 		this.sprites = Textures.getSpriteSheet("box");
-	}
-
-	public void update(int ox, int oy) {
-		
 	}
 
 	protected void draw(Graphics2D g, int ox, int oy) {
@@ -40,5 +36,7 @@ public class Box extends HudComponent {
 			}
 		}
 	}
+
+	public void update(int ox, int oy) {}
 
 }
