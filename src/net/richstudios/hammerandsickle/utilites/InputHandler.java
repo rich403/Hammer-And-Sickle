@@ -12,7 +12,8 @@ import java.awt.event.MouseWheelListener;
 
 import net.richstudios.hammerandsickle.Game;
 
-public class InputHandler implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, FocusListener {
+public class InputHandler implements KeyListener, MouseListener,
+		MouseMotionListener, MouseWheelListener, FocusListener {
 
 	public static final int NUM_KEYS = 16;
 
@@ -34,20 +35,20 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public static int Q = 12;
 	public static int W = 13;
 	public static int E = 14;
-	
+
 	public static final int NUM_MOUSEBUTTONS = 3;
 
 	private boolean mouseButtonState[] = new boolean[NUM_MOUSEBUTTONS];
 	private boolean prevMouseButtonState[] = new boolean[NUM_MOUSEBUTTONS];
-	
+
 	public static int MOUSEBUTTONL = 1;
 	public static int MOUSEBUTTONM = 2;
 	public static int MOUSEBUTTONR = 3;
-	
+
 	public double mouseWheelMovement = 0;
-	
+
 	public int mouseX = 0, mouseY = 0;
-	
+
 	public InputHandler(Game gp) {
 		gp.addKeyListener(this);
 		gp.addMouseListener(this);
@@ -88,7 +89,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		else if (i == KeyEvent.VK_E)
 			keyState[E] = b;
 	}
-	
+
 	public void mouseSet(int i, boolean b) {
 		if (i == MouseEvent.BUTTON1)
 			mouseButtonState[MOUSEBUTTONL] = b;
@@ -102,11 +103,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		for (int i = 0; i < NUM_KEYS; i++) {
 			prevKeyState[i] = keyState[i];
 		}
-		
+
 		for (int i = 0; i < NUM_MOUSEBUTTONS; i++) {
 			prevMouseButtonState[i] = mouseButtonState[i];
 		}
-		
+
 		mouseWheelMovement = 0;
 	}
 
@@ -128,12 +129,14 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	public boolean anyConfirmKeyPress() {
 		for (int i = 0; i < NUM_KEYS; i++) {
-			if (keyState[i] && (i == BUTTON1 || i == BUTTON2 || i == BUTTON3 || i == BUTTON4 || i == ENTER))
+			if (keyState[i]
+					&& (i == BUTTON1 || i == BUTTON2 || i == BUTTON3
+							|| i == BUTTON4 || i == ENTER))
 				return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isMousePressed(int i) {
 		return mouseButtonState[i];
 	}
@@ -149,7 +152,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		}
 		return false;
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 		keySet(e.getKeyCode(), true);
 	}
@@ -171,9 +174,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		mouseY = e.getY();
 	}
 
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+	}
 
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+	}
 
 	public void mousePressed(MouseEvent e) {
 		mouseSet(e.getButton(), true);
@@ -184,19 +189,20 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		int notches = e.getWheelRotation();
-		if(notches > 0) {
+		if (notches > 0) {
 			mouseWheelMovement++;
-		} else if(notches < 0) {
+		} else if (notches < 0) {
 			mouseWheelMovement--;
 		}
 	}
 
-	public void focusGained(FocusEvent e) {}
+	public void focusGained(FocusEvent e) {
+	}
 
 	public void focusLost(FocusEvent e) {
 		for (int i = 0; i < NUM_KEYS; i++) {
@@ -206,9 +212,10 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 			mouseButtonState[i] = false;
 		}
 	}
-	
+
 	public boolean isMouseInside(int x, int y, int width, int height) {
-		if(mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
+		if (mouseX >= x && mouseY >= y && mouseX <= x + width
+				&& mouseY <= y + height) {
 			return true;
 		}
 		return false;

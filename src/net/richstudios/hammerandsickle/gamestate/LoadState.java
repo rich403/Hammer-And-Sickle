@@ -40,7 +40,8 @@ public class LoadState extends GameState {
 			count++;
 		}
 		if (count >= References.FPS * 2) {
-			CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, new MenuState(gsm));
+			CheckeredTransitonState cts = new CheckeredTransitonState(gsm,
+					this, new MenuState(gsm));
 			gsm.set(cts);
 		}
 	}
@@ -51,16 +52,21 @@ public class LoadState extends GameState {
 		g.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		g.setColor(Color.YELLOW);
 		String percentageDone = (int) (loader.getPercentageDone() * 100D) + "%";
-		int percentageX = (References.WIDTH / 2) - (StringUtils.getStringWidth(g.getFont(), percentageDone) / 2);
-		int percentageY = (References.HEIGHT / 2) - (StringUtils.getStringHeight(g.getFont(), percentageDone) / 2);
+		int percentageX = (References.WIDTH / 2)
+				- (StringUtils.getStringWidth(g.getFont(), percentageDone) / 2);
+		int percentageY = (References.HEIGHT / 2)
+				- (StringUtils.getStringHeight(g.getFont(), percentageDone) / 2);
 		g.drawString(percentageDone, percentageX, percentageY);
 		String loadText = loader.getLoadText();
-		int loadTextX = References.WIDTH - StringUtils.getStringWidth(g.getFont(), loadText) - 3;
-		int loadTextY = References.HEIGHT - StringUtils.getStringHeight(g.getFont(), loadText) + 2;
+		int loadTextX = References.WIDTH
+				- StringUtils.getStringWidth(g.getFont(), loadText) - 3;
+		int loadTextY = References.HEIGHT
+				- StringUtils.getStringHeight(g.getFont(), loadText) + 2;
 		g.drawString(loadText, loadTextX, loadTextY);
 	}
 
-	public void handleInput(InputHandler keys) {}
+	public void handleInput(InputHandler keys) {
+	}
 
 	private class ResourceLoader implements Runnable {
 
@@ -86,7 +92,8 @@ public class LoadState extends GameState {
 		}
 
 		public double getPercentageDone() {
-			return (Textures.getPercentageLoaded() + Sound.getPercentageLoaded()) / 2D;
+			return (Textures.getPercentageLoaded() + Sound
+					.getPercentageLoaded()) / 2D;
 		}
 
 	}

@@ -19,21 +19,24 @@ public class MainMenuButton extends HudComponent {
 	public MainMenuButton(int x, int y, int id) {
 		this(x, y, 1, id);
 	}
-	
+
 	public MainMenuButton(int x, int y, int size, int id) {
 		super(x, y, DEFAULT_WIDTH * size, DEFAULT_HEIGHT * size, size);
 		this.status = NORMAL;
 		this.sprites = Textures.getSpriteSheet("mainMenuButtons")[id];
 	}
 
-	public void update(int ox, int oy) {}
+	public void update(int ox, int oy) {
+	}
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		g.drawImage(sprites[status], x + ox, y + oy, width, height, null);
 	}
-	
+
 	private boolean isMouseInside(InputHandler input, int ox, int oy) {
-		return input.isMouseInside((x + ox) * References.SCALE, (y + oy) * References.SCALE, width * References.SCALE, height * References.SCALE);
+		return input.isMouseInside((x + ox) * References.SCALE, (y + oy)
+				* References.SCALE, width * References.SCALE, height
+				* References.SCALE);
 	}
 
 	public void checkInteraction(InputHandler input, int ox, int oy) {

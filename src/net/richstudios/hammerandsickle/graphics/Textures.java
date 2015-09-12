@@ -15,9 +15,12 @@ import net.richstudios.hammerandsickle.utilites.Logger;
 public class Textures {
 
 	// ICONS
-	public static final BufferedImage icon16x = loadImageRaw(Path.ICONS + "/icon16x.png");
-	public static final BufferedImage icon32x = loadImageRaw(Path.ICONS + "/icon32x.png");
-	public static final BufferedImage icon64x = loadImageRaw(Path.ICONS + "/icon64x.png");
+	public static final BufferedImage icon16x = loadImageRaw(Path.ICONS
+			+ "/icon16x.png");
+	public static final BufferedImage icon32x = loadImageRaw(Path.ICONS
+			+ "/icon32x.png");
+	public static final BufferedImage icon64x = loadImageRaw(Path.ICONS
+			+ "/icon64x.png");
 
 	private static HashMap<String, BufferedImage> textures;
 	private static HashMap<String, BufferedImage[][]> spriteSheets;
@@ -125,16 +128,20 @@ public class Textures {
 			if (isSpritesheet.get(i)) {
 				switch (types.get(i)) {
 				case BACKGROUND:
-					loadSpritesheet(Path.BACKGROUNDS + "/" + name + ".png", name, spriteSize);
+					loadSpritesheet(Path.BACKGROUNDS + "/" + name + ".png",
+							name, spriteSize);
 					break;
 				case GUI:
-					loadSpritesheet(Path.GUI + "/" + name + ".png", name, spriteSize);
+					loadSpritesheet(Path.GUI + "/" + name + ".png", name,
+							spriteSize);
 					break;
 				case SPRITE:
-					loadSpritesheet(Path.SPRITES + "/" + name + ".png", name, spriteSize);
+					loadSpritesheet(Path.SPRITES + "/" + name + ".png", name,
+							spriteSize);
 					break;
 				case TILESET:
-					loadSpritesheet(Path.TILESETS + "/" + name + ".png", name, spriteSize);
+					loadSpritesheet(Path.TILESETS + "/" + name + ".png", name,
+							spriteSize);
 					break;
 				}
 			} else {
@@ -157,8 +164,10 @@ public class Textures {
 	}
 
 	public static double getPercentageLoaded() {
-		if(amountOfTextures == 0) return 1.0;
-		if(texturesLoaded == 0) return 0.0;
+		if (amountOfTextures == 0)
+			return 1.0;
+		if (texturesLoaded == 0)
+			return 0.0;
 		return (double) texturesLoaded / (double) amountOfTextures;
 	}
 
