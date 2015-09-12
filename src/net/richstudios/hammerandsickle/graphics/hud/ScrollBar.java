@@ -38,12 +38,11 @@ public class ScrollBar extends HudComponent {
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		int sSize = PEICE_HEIGHT * size;
-		int nParts = aHeight;
-		for (int i = 0; i <= nParts; i++) {
+		for (int i = 0; i < aHeight; i++) {
 			int py = (y + oy) + (i * sSize);
 			if (i == 0)
 				g.drawImage(sprites[0], x + ox, py, sSize, sSize, null);
-			else if (i == nParts)
+			else if (i == aHeight - 1)
 				g.drawImage(sprites[2], x + ox, py, sSize, sSize, null);
 			else
 				g.drawImage(sprites[1], x + ox, py, sSize, sSize, null);
@@ -87,7 +86,7 @@ public class ScrollBar extends HudComponent {
 			}
 		}
 		if (status == CLICKED)
-			setValue((int) (((input.mouseY - (y + oy)) / References.SCALE - (SLIDER_HEIGHT * size) / 2) / step));
+			setValue(input.mouseY / References.SCALE);
 	}
 
 	public int getValue() {

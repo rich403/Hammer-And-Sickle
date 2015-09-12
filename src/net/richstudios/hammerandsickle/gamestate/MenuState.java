@@ -11,7 +11,8 @@ import net.richstudios.hammerandsickle.graphics.hud.Hud;
 import net.richstudios.hammerandsickle.graphics.hud.HudAction;
 import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
 import net.richstudios.hammerandsickle.graphics.hud.MainMenuButton;
-import net.richstudios.hammerandsickle.graphics.hud.Box;
+import net.richstudios.hammerandsickle.graphics.hud.ScrollBar;
+import net.richstudios.hammerandsickle.graphics.hud.TextBox;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
@@ -19,7 +20,9 @@ public class MenuState extends GameState {
 	
 	private Hud hud;
 	private static int menuX = References.WIDTH - (References.WIDTH / 20);
-
+	private TextBox box;
+	private ScrollBar sb;
+	
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Sound.loop("revolt");
@@ -52,7 +55,14 @@ public class MenuState extends GameState {
 		for (int i = 0; i < buttons.length; i++) {
 			hud.add(buttons[i]);
 		}
-		hud.add(new Box(0, 0, 10, 10, 2));
+		box = new TextBox(0, 0, 20, 20, 2);
+		box.setText("This is a textBox\n"
+				+ "1\n"
+				+ "2\n"
+				+ "3");
+		sb = new ScrollBar(20 * 4 * 2, 0, 20, 20, 2);
+		hud.add(box);
+		hud.add(sb);
 	}
 
 	private void newGame() {
@@ -81,6 +91,7 @@ public class MenuState extends GameState {
 
 	public void update() {
 		hud.update();
+		box.setTextOffset(0, sb.getValue());
 	}
 
 	public void draw(Graphics2D g) {
