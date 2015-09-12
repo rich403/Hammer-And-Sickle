@@ -12,14 +12,15 @@ public class ScrollBar extends HudComponent {
 
 	private static final int SLIDER_WIDTH = 4, SLIDER_HEIGHT = 6, PEICE_HEIGHT = 4;
 	private static final int NORMAL = 0, HOVERED = 1, CLICKED = 2;
-	private int aHeight, aWidth, status;
+	private int aHeight, status;
 	private int value, maxValue;
 	private double step;
 	private BufferedImage[] sprites;
 	private BufferedImage[] buttonSprites;
 
 	public ScrollBar(int x, int y, int height, int maxValue, int size) {
-		super(x, y, height * PEICE_HEIGHT * size, SLIDER_WIDTH * size, size);
+		super(x, y, height * PEICE_HEIGHT, SLIDER_WIDTH, size);
+		this.aHeight = height;
 		this.status = NORMAL;
 		this.maxValue = maxValue;
 		this.sprites = new BufferedImage[Textures.getSpriteSheet("scrollbar").length];
@@ -37,7 +38,7 @@ public class ScrollBar extends HudComponent {
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		int sSize = PEICE_HEIGHT * size;
-		int nParts = (height / PEICE_HEIGHT) / size;
+		int nParts = aHeight;
 		for (int i = 0; i <= nParts; i++) {
 			int py = (y + oy) + (i * sSize);
 			if (i == 0)

@@ -11,6 +11,7 @@ import net.richstudios.hammerandsickle.graphics.hud.Hud;
 import net.richstudios.hammerandsickle.graphics.hud.HudAction;
 import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
 import net.richstudios.hammerandsickle.graphics.hud.MainMenuButton;
+import net.richstudios.hammerandsickle.graphics.hud.Box;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
@@ -51,7 +52,7 @@ public class MenuState extends GameState {
 		for (int i = 0; i < buttons.length; i++) {
 			hud.add(buttons[i]);
 		}
-		
+		hud.add(new Box(0, 0, 10, 10, 2));
 	}
 
 	private void newGame() {
