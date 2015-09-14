@@ -29,8 +29,8 @@ public class TextBox extends Box {
 	}
 
 	public void reloadImage() {
-		textImage = new BufferedImage(this.width - 4, this.height - 4,
-				BufferedImage.TYPE_INT_ARGB);
+
+		textImage = new BufferedImage(this.width - 4, this.height - 4, BufferedImage.TYPE_INT_ARGB);
 		if (!text.isEmpty()) {
 			String[] textSplit = text.split("\n");
 			Graphics g = textImage.getGraphics();
