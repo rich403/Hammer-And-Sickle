@@ -18,13 +18,12 @@ public class MainMenuButton extends HudComponent {
 
 	public MainMenuButton(int x, int y, int id) {
 		this(x, y, 1, id);
-		this.status = NORMAL;
-		this.sprites = Textures.getSpriteSheet("mainMenuButtons")[id];
 	}
 
 	public MainMenuButton(int x, int y, int size, int id) {
 		super(x, y, DEFAULT_WIDTH * size, DEFAULT_HEIGHT * size, size);
 		this.status = NORMAL;
+		this.sprites = Textures.getSpriteSheet("mainMenuButtons")[id];
 	}
 
 	public void update(int ox, int oy) {
@@ -58,10 +57,6 @@ public class MainMenuButton extends HudComponent {
 				status = HOVERED;
 			}
 		}
-	}
-
-	public int getWidth() {
-		return 0;
 	}
 
 }

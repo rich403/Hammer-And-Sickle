@@ -12,29 +12,28 @@ import java.awt.event.MouseWheelListener;
 
 import net.richstudios.hammerandsickle.Game;
 
-public class InputHandler implements KeyListener, MouseListener,
-		MouseMotionListener, MouseWheelListener, FocusListener {
+public class InputHandler implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, FocusListener {
 
-	public static final int NUM_KEYS = 16;
+	public static final int NUM_KEYS = 1024;
 
 	private boolean keyState[] = new boolean[NUM_KEYS];
 	private boolean prevKeyState[] = new boolean[NUM_KEYS];
 
-	public static int UP = 0;
-	public static int LEFT = 1;
-	public static int DOWN = 2;
-	public static int RIGHT = 3;
-	public static int BUTTON1 = 4;
-	public static int BUTTON2 = 5;
-	public static int BUTTON3 = 6;
-	public static int BUTTON4 = 7;
-	public static int ENTER = 8;
-	public static int ESCAPE = 9;
-	public static int F12 = 10;
-	public static final int F11 = 11;
-	public static int Q = 12;
-	public static int W = 13;
-	public static int E = 14;
+	public static final int UP = KeyEvent.VK_UP;
+	public static final int LEFT = KeyEvent.VK_LEFT;
+	public static final int DOWN = KeyEvent.VK_DOWN;
+	public static final int RIGHT = KeyEvent.VK_RIGHT;
+	public static final int BUTTON1 = KeyEvent.VK_Z;
+	public static final int BUTTON2 = KeyEvent.VK_X;
+	public static final int BUTTON3 = KeyEvent.VK_C;
+	public static final int BUTTON4 = KeyEvent.VK_V;
+	public static final int ENTER = KeyEvent.VK_ENTER;
+	public static final int ESCAPE = KeyEvent.VK_ESCAPE;
+	public static final int F12 = KeyEvent.VK_F12;
+	public static final int F11 = KeyEvent.VK_F11;
+	public static final int Q = KeyEvent.VK_Q;
+	public static final int W = KeyEvent.VK_W;
+	public static final int E = KeyEvent.VK_E;
 
 	public static final int NUM_MOUSEBUTTONS = 3;
 
@@ -58,36 +57,7 @@ public class InputHandler implements KeyListener, MouseListener,
 	}
 
 	public void keySet(int i, boolean b) {
-		if (i == KeyEvent.VK_UP)
-			keyState[UP] = b;
-		else if (i == KeyEvent.VK_LEFT)
-			keyState[LEFT] = b;
-		else if (i == KeyEvent.VK_DOWN)
-			keyState[DOWN] = b;
-		else if (i == KeyEvent.VK_RIGHT)
-			keyState[RIGHT] = b;
-		else if (i == KeyEvent.VK_Z)
-			keyState[BUTTON1] = b;
-		else if (i == KeyEvent.VK_X)
-			keyState[BUTTON2] = b;
-		else if (i == KeyEvent.VK_C)
-			keyState[BUTTON3] = b;
-		else if (i == KeyEvent.VK_V)
-			keyState[BUTTON4] = b;
-		else if (i == KeyEvent.VK_ENTER)
-			keyState[ENTER] = b;
-		else if (i == KeyEvent.VK_ESCAPE)
-			keyState[ESCAPE] = b;
-		else if (i == KeyEvent.VK_F12)
-			keyState[F12] = b;
-		else if (i == KeyEvent.VK_F11)
-			keyState[F11] = b;
-		else if (i == KeyEvent.VK_Q)
-			keyState[Q] = b;
-		else if (i == KeyEvent.VK_W)
-			keyState[W] = b;
-		else if (i == KeyEvent.VK_E)
-			keyState[E] = b;
+		keyState[i] = b;
 	}
 
 	public void mouseSet(int i, boolean b) {
@@ -129,9 +99,7 @@ public class InputHandler implements KeyListener, MouseListener,
 
 	public boolean anyConfirmKeyPress() {
 		for (int i = 0; i < NUM_KEYS; i++) {
-			if (keyState[i]
-					&& (i == BUTTON1 || i == BUTTON2 || i == BUTTON3
-							|| i == BUTTON4 || i == ENTER))
+			if (keyState[i] && (i == BUTTON1 || i == BUTTON2 || i == BUTTON3 || i == BUTTON4 || i == ENTER))
 				return true;
 		}
 		return false;
@@ -214,8 +182,7 @@ public class InputHandler implements KeyListener, MouseListener,
 	}
 
 	public boolean isMouseInside(int x, int y, int width, int height) {
-		if (mouseX >= x && mouseY >= y && mouseX <= x + width
-				&& mouseY <= y + height) {
+		if (mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height) {
 			return true;
 		}
 		return false;

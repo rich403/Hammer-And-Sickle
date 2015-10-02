@@ -10,8 +10,7 @@ import net.richstudios.hammerandsickle.utilites.InputHandler;
 
 public class ScrollBar extends HudComponent {
 
-	private static final int SLIDER_WIDTH = 4, SLIDER_HEIGHT = 6,
-			PEICE_HEIGHT = 4;
+	private static final int WIDTH = 4, SLIDER_HEIGHT = 6, PEICE_HEIGHT = 4;
 	private static final int NORMAL = 0, HOVERED = 1, CLICKED = 2;
 	private int aHeight, status;
 	private int value, maxValue;
@@ -20,18 +19,16 @@ public class ScrollBar extends HudComponent {
 	private BufferedImage[] buttonSprites;
 
 	public ScrollBar(int x, int y, int height, int maxValue, int size) {
-		super(x, y, height * PEICE_HEIGHT, SLIDER_WIDTH, size);
+		super(x, y, height * PEICE_HEIGHT, WIDTH, size);
 		this.aHeight = height;
 		this.status = NORMAL;
 		this.maxValue = maxValue;
 		this.sprites = new BufferedImage[Textures.getSpriteSheet("scrollbar").length];
-		this.step = (double) (this.height - (PEICE_HEIGHT * size) / 2D)
-				/ (double) maxValue;
+		this.step = (double) (this.height - (PEICE_HEIGHT * size) / 2D) / (double) maxValue;
 		for (int i = 0; i < Textures.getSpriteSheet("scrollbar").length; i++) {
 			this.sprites[i] = Textures.getSpriteSheet("scrollbar")[i][0];
 		}
-		this.buttonSprites = new BufferedImage[Textures
-				.getSpriteSheet("scrollbarButton").length];
+		this.buttonSprites = new BufferedImage[Textures.getSpriteSheet("scrollbarButton").length];
 		for (int i = 0; i < Textures.getSpriteSheet("scrollbarButton").length; i++) {
 			this.buttonSprites[i] = Textures.getSpriteSheet("scrollbarButton")[i][0];
 		}
@@ -52,18 +49,15 @@ public class ScrollBar extends HudComponent {
 				g.drawImage(sprites[1], x + ox, py, sSize, sSize, null);
 		}
 		int sliderY = (int) ((y + oy) + (value * step));
-		g.drawImage(buttonSprites[status], x + ox, sliderY,
-				SLIDER_WIDTH * size, SLIDER_HEIGHT * size, null);
+		g.drawImage(buttonSprites[status], x + ox, sliderY, WIDTH * size, SLIDER_HEIGHT * size, null);
 	}
 
 	private boolean isMouseInside(InputHandler input, int ox, int oy) {
 		int sliderX = x + ox;
 		int sliderY = (int) ((y + oy) + (value * step));
-		int sliderWidth = SLIDER_WIDTH * size;
+		int sliderWidth = WIDTH * size;
 		int sliderHeight = SLIDER_HEIGHT * size;
-		return input.isMouseInside(sliderX * References.SCALE, sliderY
-				* References.SCALE, sliderWidth * References.SCALE,
-				sliderHeight * References.SCALE);
+		return input.isMouseInside(sliderX * References.SCALE, sliderY * References.SCALE, sliderWidth * References.SCALE, sliderHeight * References.SCALE);
 	}
 
 	private void setValue(int i) {
@@ -93,7 +87,7 @@ public class ScrollBar extends HudComponent {
 			}
 		}
 		if (status == CLICKED)
-			setValue(input.mouseY / References.SCALE);
+			setValue(input.mouseY - oy / References.SCALE);
 	}
 
 	public int getValue() {

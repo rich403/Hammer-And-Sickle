@@ -25,8 +25,7 @@ public class TextBox extends Box {
 		reloadImage();
 	}
 
-	public void update(int ox, int oy) {
-	}
+	public void update(int ox, int oy) {}
 
 	public void reloadImage() {
 
