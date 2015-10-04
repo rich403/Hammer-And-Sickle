@@ -10,7 +10,7 @@ import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.graphics.hud.Hud;
 import net.richstudios.hammerandsickle.graphics.hud.HudAction;
 import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
-import net.richstudios.hammerandsickle.graphics.hud.MainMenuButton;
+import net.richstudios.hammerandsickle.graphics.hud.HudMainMenuButton;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
@@ -22,29 +22,29 @@ public class MenuState extends GameState {
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Sound.loop("revolt");
-		MainMenuButton[] buttons = new MainMenuButton[4];
+		HudMainMenuButton[] buttons = new HudMainMenuButton[4];
 		for (int i = 0; i < buttons.length; i++) {
-			buttons[i] = new MainMenuButton(menuX
-					- MainMenuButton.DEFAULT_WIDTH * 2, References.HEIGHT / 2
-					- MainMenuButton.DEFAULT_HEIGHT
-					+ (MainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
+			buttons[i] = new HudMainMenuButton(menuX
+					- HudMainMenuButton.DEFAULT_WIDTH * 2, References.HEIGHT / 2
+					- HudMainMenuButton.DEFAULT_HEIGHT
+					+ (HudMainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
 		}
-		buttons[0].addAction(new HudAction() {
+		buttons[0].setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
 				newGame();
 			}
 		});
-		buttons[1].addAction(new HudAction() {
+		buttons[1].setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
 				loadGame();
 			}
 		});
-		buttons[2].addAction(new HudAction() {
+		buttons[2].setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
 				help();
 			}
 		});
-		buttons[3].addAction(new HudAction() {
+		buttons[3].setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
 				exit();
 			}

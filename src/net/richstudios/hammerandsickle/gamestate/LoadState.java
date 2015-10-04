@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import net.richstudios.hammerandsickle.audio.Sound;
 import net.richstudios.hammerandsickle.gamestate.transitions.CheckeredTransitonState;
+import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
@@ -40,9 +41,10 @@ public class LoadState extends GameState {
 			count++;
 		}
 		if (count >= References.FPS * 2) {
-			CheckeredTransitonState cts = new CheckeredTransitonState(gsm,
-					this, new MenuState(gsm));
-			gsm.set(cts);
+//			CheckeredTransitonState cts = new CheckeredTransitonState(gsm,
+//					this, new MenuState(gsm));
+//			gsm.set(cts);
+			gsm.set(new GenState(gsm));
 		}
 	}
 
@@ -77,6 +79,8 @@ public class LoadState extends GameState {
 		public void run() {
 			loadText = "Loading Textures";
 			Textures.loadTextures();
+			loadText = "Loading Font";
+			GameFont.init();
 			loadText = "Loading Sounds";
 			Sound.loadSound();
 			loadText = "Done";

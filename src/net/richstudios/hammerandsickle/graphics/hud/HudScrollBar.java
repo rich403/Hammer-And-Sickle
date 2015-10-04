@@ -8,7 +8,7 @@ import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
-public class ScrollBar extends HudComponent {
+public class HudScrollBar extends HudComponent {
 
 	private static final int WIDTH = 4, SLIDER_HEIGHT = 6, PEICE_HEIGHT = 4;
 	private static final int NORMAL = 0, HOVERED = 1, CLICKED = 2;
@@ -18,7 +18,7 @@ public class ScrollBar extends HudComponent {
 	private BufferedImage[] sprites;
 	private BufferedImage[] buttonSprites;
 
-	public ScrollBar(int x, int y, int height, int maxValue, int size) {
+	public HudScrollBar(int x, int y, int height, int maxValue, int size) {
 		super(x, y, height * PEICE_HEIGHT, WIDTH, size);
 		this.aHeight = height;
 		this.status = NORMAL;

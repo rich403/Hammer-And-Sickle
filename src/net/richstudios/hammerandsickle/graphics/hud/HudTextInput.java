@@ -3,36 +3,37 @@ package net.richstudios.hammerandsickle.graphics.hud;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.KeyStroke;
+
 import net.richstudios.hammerandsickle.audio.Sound;
+import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 import net.richstudios.hammerandsickle.utilites.StringUtils;
 
-public class TextInput extends HudComponent {
+public class HudTextInput extends HudComponent {
 
 	public static final int PEICE_HEIGHT = 12, PEICE_WIDTH = 4;
 
 	private String text;
-	private Font font;
-	private Color color;
 	private boolean selected;
 
 	protected int aWidth, aHeight;
 	protected BufferedImage[] sprites;
+	
+	private final String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 
-	private final String accepted_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890!@#$%^&*()_+\\|`~\"',.<>/?[]{}";
-
-	public TextInput(int x, int y, int width, String text, int size) {
+	public HudTextInput(int x, int y, int width, String text, int size) {
 		super(x, y, width * PEICE_WIDTH, PEICE_HEIGHT, size);
 		this.aWidth = width;
 		this.text = text;
-		this.font = new Font("Times New Roman", Font.PLAIN, 12);
-		this.color = Color.YELLOW;
-		this.selected = true;
+		this.selected = false;
 		this.sprites = Textures.getSpriteSheet("textInput")[0];
 	}
 
@@ -50,20 +51,22 @@ public class TextInput extends HudComponent {
 			else if (x == aWidth - 1)
 				g.drawImage(sprites[2], dx, dy, PEICE_WIDTH * size, PEICE_HEIGHT * size, null);
 		}
-		int tx = (this.x + ox) + 2;
-		int ty = (this.y + oy) + StringUtils.getStringHeight(font, text) - 2;
-		g.setFont(font);
-		g.setColor(color);
-		g.drawString(text, tx, ty);
+
+		int tx = x + ox + 2 * size;
+		int ty = y + oy + 3 * size;
+		GameFont.render(text, g, tx, ty, size);
 		if (selected && (System.currentTimeMillis() % 1000 < 500)) {
-			int cx = StringUtils.getStringWidth(font, text) + tx + 1;
-			g.drawLine(cx, ty - 9, cx, ty - 1);
+			int cx = (GameFont.getStringWidth(text, size) + tx) * size;
+			g.setColor(Color.YELLOW);
+			g.drawLine(cx, ty + GameFont.HEIGHT * size - 1, cx, ty * size);
 		}
 	}
 
 	private boolean isMouseInside(InputHandler input, int ox, int oy) {
 		return input.isMouseInside((x + ox) * References.SCALE, (y + oy) * References.SCALE, width * References.SCALE, height * References.SCALE);
 	}
+
+	private boolean[] keyChecked = new boolean[InputHandler.NUM_KEYS];
 
 	public void checkInteraction(InputHandler input, int ox, int oy) {
 		if (input.isMousePressed(InputHandler.MOUSEBUTTONL) && isMouseInside(input, ox, oy)) {
@@ -73,15 +76,16 @@ public class TextInput extends HudComponent {
 		}
 		if (selected) {
 			for (int i = 0; i < InputHandler.NUM_KEYS; i++) {
-				if (input.isPressed(i)) {
-					String sym = "" + (char) i;
-					if (i == KeyEvent.VK_BACK_SPACE || i == KeyEvent.VK_DELETE) {
-						text.substring(0, text.length() - 1);
-						continue;
+				if(input.isKeyPressed(i) && !keyChecked[i]) {
+					char characterTyped = (char) i;
+					if(i == KeyEvent.VK_BACK_SPACE && text.length() != 0) {
+						text = text.substring( 0, text.length() - 1);
+					} else if(allowedCharacters.contains(("" + characterTyped).toUpperCase())) {
+						text = text.concat("" + characterTyped).toUpperCase();
 					}
-					if (accepted_characters.contains(KeyEvent.getKeyText(i))) {
-						text.concat(sym);
-					}
+					keyChecked[i] = true;
+				} else if(!input.isKeyPressed(i) && keyChecked[i]) {
+					keyChecked[i] = false;
 				}
 			}
 		}

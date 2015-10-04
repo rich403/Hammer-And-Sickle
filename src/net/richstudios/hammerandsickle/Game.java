@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import net.richstudios.hammerandsickle.audio.Sound;
 import net.richstudios.hammerandsickle.gamestate.GameStateManager;
 import net.richstudios.hammerandsickle.gamestate.LoadState;
+import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.reference.Settings;
@@ -47,8 +48,7 @@ public class Game extends JPanel implements Runnable {
 		icons.add(Textures.icon32x);
 		icons.add(Textures.icon64x);
 		frame.setIconImages(icons);
-		frame.setSize(References.WIDTH * References.SCALE, References.HEIGHT
-				* References.SCALE);
+		frame.setSize(References.WIDTH * References.SCALE, References.HEIGHT * References.SCALE);
 		frame.setContentPane(this);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -64,8 +64,7 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	private void init() {
-		image = new BufferedImage(References.WIDTH, References.HEIGHT,
-				BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(References.WIDTH, References.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g = (Graphics2D) image.getGraphics();
 		input = new InputHandler(this);
 		Sound.init();
@@ -102,11 +101,11 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	private void update() {
-		if (input.isTyped(InputHandler.F12)) {
+		if (input.isKeyTyped(InputHandler.F12)) {
 			Settings.debug = !Settings.debug;
 		}
-		input.update();
 		gsm.update();
+		input.update();
 	}
 
 	private void draw() {
@@ -118,8 +117,7 @@ public class Game extends JPanel implements Runnable {
 			g.fillRect(tx, ty, 1, 1);
 		}
 		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, References.WIDTH * References.SCALE,
-				References.HEIGHT * References.SCALE, null);
+		g2.drawImage(image, 0, 0, References.WIDTH * References.SCALE, References.HEIGHT * References.SCALE, null);
 		g2.setColor(Color.blue);
 		g2.dispose();
 	}

@@ -1,7 +1,8 @@
 -background-
 -gui-
+font,5,7
 title
-mainMenuButtons,64,13
+mainMenuButton,64,13
 hudIcons,12,8
 menubg
 scrollbar,4,4
@@ -12,4 +13,5 @@ button,4,4
 textInput,4,12
 -sprite-
 char,32,32
+grassland,16,16
 -tileset-

@@ -6,12 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import net.richstudios.hammerandsickle.audio.Sound;
+import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 import net.richstudios.hammerandsickle.utilites.StringUtils;
 
-public class Button extends Box {
+public class HudButton extends HudBox {
 
 	private String text;
 	private Font font;
@@ -22,7 +23,7 @@ public class Button extends Box {
 
 	private BufferedImage[][][] buttonSprites;
 
-	public Button(int x, int y, int width, int height, String text, int size) {
+	public HudButton(int x, int y, int width, int height, String text, int size) {
 		super(x, y, width, height, size);
 		this.text = text;
 		this.font = new Font("Times New Roman", Font.PLAIN, 12);
@@ -40,16 +41,12 @@ public class Button extends Box {
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		super.draw(g, ox, oy, buttonSprites[status]);
-		int tx = (ox + x) + (width / 2) - (StringUtils.getStringWidth(g.getFont(), text) / 2);
-		int ty = (oy + y) + (StringUtils.getStringHeight(g.getFont(), text) - 1);
-		g.setFont(font);
-		g.setColor(color);
+		int tx = x + ox + width / 2 - GameFont.getStringWidth(text, size) / 2;
+		int ty = y + oy + height / 2 - (GameFont.HEIGHT * size) / 2 - (1 * size);
 		if(status == CLICKED) {
-			ty += 2;
-		} else if(status == HOVERED) {
-			g.setColor(color.brighter().brighter());
+			ty += + 2 * size;
 		}
-		g.drawString(text, tx, ty);
+		GameFont.render(text, g, tx, ty, size);
 	}
 
 	private boolean isMouseInside(InputHandler input, int ox, int oy) {

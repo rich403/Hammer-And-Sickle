@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 
 import net.richstudios.hammerandsickle.graphics.Textures;
 
-public class Box extends HudComponent {
+public class HudBox extends HudComponent {
 
 	public static final int SIZE = 4;
 
 	protected int aWidth, aHeight;
 	protected BufferedImage[][] sprites;
 
-	public Box(int x, int y, int width, int height, int size) {
+	public HudBox(int x, int y, int width, int height, int size) {
 		super(x, y, width * SIZE, height * SIZE, size);
 		this.aWidth = width;
 		this.aHeight = height;

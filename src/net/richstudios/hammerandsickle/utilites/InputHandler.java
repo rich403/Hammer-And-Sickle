@@ -9,15 +9,18 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
 
 import net.richstudios.hammerandsickle.Game;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, FocusListener {
 
-	public static final int NUM_KEYS = 1024;
+	public static final int NUM_KEYS = KeyEvent.KEY_LAST;
 
 	private boolean keyState[] = new boolean[NUM_KEYS];
 	private boolean prevKeyState[] = new boolean[NUM_KEYS];
+
+	private int modifiers[] = new int[NUM_KEYS];
 
 	public static final int UP = KeyEvent.VK_UP;
 	public static final int LEFT = KeyEvent.VK_LEFT;
@@ -81,12 +84,16 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		mouseWheelMovement = 0;
 	}
 
-	public boolean isPressed(int i) {
+	public boolean isKeyPressed(int i) {
 		return keyState[i];
 	}
 
-	public boolean isTyped(int i) {
+	public boolean isKeyTyped(int i) {
 		return keyState[i] && !prevKeyState[i];
+	}
+
+	public int getModifiers(int i) {
+		return modifiers[i];
 	}
 
 	public boolean anyKeyPress() {
@@ -98,11 +105,31 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 
 	public boolean anyConfirmKeyPress() {
-		for (int i = 0; i < NUM_KEYS; i++) {
-			if (keyState[i] && (i == BUTTON1 || i == BUTTON2 || i == BUTTON3 || i == BUTTON4 || i == ENTER))
+		Integer[] keys = keysThatArePressed();
+		for (int i = 0; i < keys.length; i++) {
+			int keyCode = keys[i];
+			if (isKeyTyped(keyCode) && (keyCode == BUTTON1 || keyCode == BUTTON2 || keyCode == BUTTON3 || keyCode == BUTTON4 || keyCode == ENTER))
 				return true;
 		}
 		return false;
+	}
+
+	public Integer[] keysThatArePressed() {
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		for (int i = 0; i < NUM_KEYS; i++) {
+			if (isKeyPressed(i))
+				out.add(i);
+		}
+		return out.toArray(new Integer[out.size()]);
+	}
+	
+	public Integer[] keysThatAreTyped() {
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		for (int i = 0; i < NUM_KEYS; i++) {
+			if (isKeyTyped(i))
+				out.add(i);
+		}
+		return out.toArray(new Integer[out.size()]);
 	}
 
 	public boolean isMousePressed(int i) {
@@ -122,11 +149,13 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 
 	public void keyPressed(KeyEvent e) {
+		modifiers[e.getKeyCode()] = e.getModifiers();
 		keySet(e.getKeyCode(), true);
 	}
 
 	public void keyReleased(KeyEvent e) {
 		keySet(e.getKeyCode(), false);
+		modifiers[e.getKeyCode()] = 1;
 	}
 
 	public void keyTyped(KeyEvent e) {

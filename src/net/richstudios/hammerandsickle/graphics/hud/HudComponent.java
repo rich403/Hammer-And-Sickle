@@ -8,8 +8,45 @@ import net.richstudios.hammerandsickle.utilites.InputHandler;
 public abstract class HudComponent {
 
 	protected int x, y, width, height, size;
+
 	protected HudAction action = null;
 	protected boolean enabled = true;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
 
 	public HudComponent(int x, int y, int width, int height, int size) {
 		this.x = x;
@@ -19,7 +56,7 @@ public abstract class HudComponent {
 		this.size = size;
 	}
 
-	public void addAction(HudAction action) {
+	public void setAction(HudAction action) {
 		this.action = action;
 	}
 

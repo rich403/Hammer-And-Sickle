@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.utilites.StringUtils;
 
-public class TextBox extends Box {
+public class HudTextBox extends HudBox {
 
 	private String text = "";
 	private Font font;
@@ -17,7 +17,7 @@ public class TextBox extends Box {
 	private BufferedImage textImage = null;
 	private int tox = 0, toy = 0;
 
-	public TextBox(int x, int y, int width, int height, int size) {
+	public HudTextBox(int x, int y, int width, int height, int size) {
 		super(x, y, width, height, size);
 		this.sprites = Textures.getSpriteSheet("textBox");
 		this.font = new Font("Times New Roman", Font.PLAIN, 12);
