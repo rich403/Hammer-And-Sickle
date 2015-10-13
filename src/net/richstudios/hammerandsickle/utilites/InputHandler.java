@@ -43,9 +43,9 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private boolean mouseButtonState[] = new boolean[NUM_MOUSEBUTTONS];
 	private boolean prevMouseButtonState[] = new boolean[NUM_MOUSEBUTTONS];
 
-	public static int MOUSEBUTTONL = 1;
-	public static int MOUSEBUTTONM = 2;
-	public static int MOUSEBUTTONR = 3;
+	public static int MOUSEBUTTONL = 0;
+	public static int MOUSEBUTTONM = 1;
+	public static int MOUSEBUTTONR = 2;
 
 	public double mouseWheelMovement = 0;
 

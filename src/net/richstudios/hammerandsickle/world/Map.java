@@ -16,8 +16,11 @@ public class Map {
 	List<MapObject> objects = new ArrayList<MapObject>();
 	Camera camera;
 
-	public Map(Camera camera) {
+	private int seed;
+
+	public Map(Camera camera, int seed) {
 		this.camera = camera;
+		this.seed = seed;
 		checkChunks(camera);
 		for (MapObject object : objects) {
 			checkChunks(object);
@@ -29,16 +32,20 @@ public class Map {
 	}
 
 	public void draw(Graphics2D g) {
+		int camX = camera.getX() * References.TILE_SIZE + References.TILE_SIZE / 2 - References.WIDTH / 2;
+		int camY = camera.getY() * References.TILE_SIZE + References.TILE_SIZE / 2 - References.HEIGHT / 2;
 		for (Chunk chunk : loadedChunks) {
-			for(int x = 0; x < chunk.tiles.length; x++) {
-				for(int y = 0; y < chunk.tiles[x].length; y++) {
-					g.drawImage(chunk.tiles[x][y].texture, x * References.TILE_SIZE + chunk.chunkX * References.CHUNK_SIZE - camera.getX() * References.TILE_SIZE, y * References.TILE_SIZE + chunk.chunkY * References.CHUNK_SIZE - camera.getY() * References.TILE_SIZE, References.TILE_SIZE, References.TILE_SIZE, null);
+			int posX = chunk.chunkX * References.CHUNK_SIZE * References.TILE_SIZE - camX;
+			int posY = chunk.chunkY * References.CHUNK_SIZE * References.TILE_SIZE - camY;
+			for (int x = 0; x < chunk.tiles.length; x++) {
+				for (int y = 0; y < chunk.tiles[x].length; y++) {
+					g.drawImage(chunk.tiles[x][y].texture, x * References.TILE_SIZE + posX, y * References.TILE_SIZE + posY, References.TILE_SIZE, References.TILE_SIZE, null);
 				}
 			}
-			if(Settings.debug) {
+			if (Settings.debug) {
 				g.setColor(Color.BLACK);
-				g.drawLine(chunk.chunkX * References.CHUNK_SIZE - camera.getX() * References.TILE_SIZE, 0, chunk.chunkX * References.CHUNK_SIZE - camera.getX() * References.TILE_SIZE, References.HEIGHT);
-				g.drawLine(0, chunk.chunkY * References.CHUNK_SIZE - camera.getY() * References.TILE_SIZE, References.WIDTH, chunk.chunkY * References.CHUNK_SIZE - camera.getY() * References.TILE_SIZE);
+				g.drawLine(posX, 0, posX, References.HEIGHT);
+				g.drawLine(0, posY, References.WIDTH, posY);
 			}
 		}
 		for (MapObject object : objects) {
@@ -75,7 +82,7 @@ public class Map {
 			for (int y = cam_chunk_y - (References.CHUNKLOADING_DISTANCE - 1) / 2; y <= cam_chunk_y + (References.CHUNKLOADING_DISTANCE - 1) / 2; y++) {
 				Chunk chunk = new Chunk(x, y);
 				if (!loadedChunks.contains(chunk)) {
-					chunk.populate();
+					chunk.populate(seed);
 					loadedChunks.add(chunk);
 				}
 			}

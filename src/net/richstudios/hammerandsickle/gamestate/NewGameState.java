@@ -17,10 +17,14 @@ import net.richstudios.hammerandsickle.utilites.InputHandler;
 
 public class NewGameState extends GameState {
 
-	private static final int FRAME_WIDTH = 50, FRAME_HEIGHT = 50, FRAME_SIZE = 1, MAX_OVERLAY_APLHA = 120;
-	private static final int FRAME_X = References.WIDTH / 2 - (FRAME_WIDTH * HudBox.SIZE * FRAME_SIZE) / 2, FRAME_Y = References.HEIGHT -(FRAME_HEIGHT * HudBox.SIZE * FRAME_SIZE);
-	private static final float CHANGE_TIME = 0.7f;
-	
+	private static final int FRAME_SIZE = 2;
+	private static final int FRAME_WIDTH = (References.WIDTH / HudBox.SIZE - 10) / 2;
+	private static final int FRAME_HEIGHT = (References.HEIGHT / HudBox.SIZE - 3) / 2;
+	private static final int MAX_OVERLAY_APLHA = 120;
+	private static final int FRAME_X = References.WIDTH / 2 - (FRAME_WIDTH * HudBox.SIZE * FRAME_SIZE) / 2;
+	private static final int FRAME_Y = References.HEIGHT - (FRAME_HEIGHT * HudBox.SIZE * FRAME_SIZE);
+	private static final float CHANGE_TIME = 0.6f;
+
 	private GameState lastState;
 	private Color overlayColor;
 	private int overlayAlpha = 0;
@@ -47,18 +51,18 @@ public class NewGameState extends GameState {
 		y = References.HEIGHT;
 		bgBox = new HudBox(0, 0, FRAME_WIDTH, FRAME_HEIGHT + 1, FRAME_SIZE);
 		frame.add(bgBox);
-		lblTitle = new HudLabel("NEW GAME", 2, 3, 1);
+		lblTitle = new HudLabel("NEW GAME", 2 * FRAME_SIZE, 3 * FRAME_SIZE, FRAME_SIZE);
 		frame.add(lblTitle);
 		addButtons(frame);
-		txtInName = new HudTextInput(2, 12, 20, "", FRAME_SIZE);
+		txtInName = new HudTextInput(2 * FRAME_SIZE, 12 * FRAME_SIZE, 20, "", FRAME_SIZE);
 		frame.add(txtInName);
 	}
-	
+
 	private void addButtons(Hud frame) {
 		int buttonWidth = 8;
 		int buttonHeight = 4;
-		int buttonY = FRAME_HEIGHT * 4 - (buttonHeight + 3) * 4;
-		int buttonX = FRAME_WIDTH * 4 - (buttonWidth + 1) * 4;
+		int buttonY = FRAME_HEIGHT * FRAME_SIZE * HudButton.SIZE - (buttonHeight * FRAME_SIZE + 3 * FRAME_SIZE) * HudBox.SIZE;
+		int buttonX = FRAME_WIDTH * FRAME_SIZE * HudButton.SIZE - (buttonWidth * FRAME_SIZE + 1 * FRAME_SIZE) * HudBox.SIZE;
 		btnCancel = new HudButton(buttonX, buttonY, buttonWidth, buttonHeight, "Back", FRAME_SIZE);
 		btnCancel.setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
@@ -66,7 +70,7 @@ public class NewGameState extends GameState {
 			}
 		});
 		frame.add(btnCancel);
-		btnGo = new HudButton(buttonX - buttonWidth * 4 - 1 * 4, buttonY, buttonWidth, buttonHeight, "Go", FRAME_SIZE);
+		btnGo = new HudButton(buttonX - buttonWidth * FRAME_SIZE * 4 - 1 * FRAME_SIZE * 4, buttonY, buttonWidth, buttonHeight, "Go", FRAME_SIZE);
 		btnGo.setAction(new HudAction() {
 			public void actionPerformed(HudComponent comp) {
 			}
