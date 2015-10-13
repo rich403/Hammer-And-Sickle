@@ -17,7 +17,7 @@ public class GenState extends GameState {
 	public GenState(GameStateManager gsm) {
 		super(gsm);
 		camera = new Camera(0, 0);
-		map = new Map(camera);
+		map = new Map(camera, 1151);
 	}
 
 	public void init() {
@@ -34,16 +34,22 @@ public class GenState extends GameState {
 		map.draw(g);
 	}
 
+	private double x = 0, y = 0;
+	private final double moveSpeed = 0.1;
+
 	public void handleInput(InputHandler input) {
 		if (input.isKeyPressed(KeyEvent.VK_UP)) {
-			camera.setY(camera.getY() - 1);
+			y -= moveSpeed;
 		} else if (input.isKeyPressed(KeyEvent.VK_DOWN)) {
-			camera.setY(camera.getY() + 1);
-		} if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
-			camera.setX(camera.getX() - 1);
-		} else if (input.isKeyPressed(KeyEvent.VK_RIGHT)) {
-			camera.setX(camera.getX() + 1);
+			y += moveSpeed;
 		}
+		if (input.isKeyPressed(KeyEvent.VK_LEFT)) {
+			x -= moveSpeed;
+		} else if (input.isKeyPressed(KeyEvent.VK_RIGHT)) {
+			x += moveSpeed;
+		}
+		camera.setX((int) x);
+		camera.setY((int) y);
 	}
 
 }

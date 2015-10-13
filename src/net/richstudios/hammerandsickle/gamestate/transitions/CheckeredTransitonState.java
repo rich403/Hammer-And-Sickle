@@ -25,11 +25,10 @@ public class CheckeredTransitonState extends TransitionState {
 
 	private float[][] sizes;
 
-	public CheckeredTransitonState(GameStateManager gsm, GameState prevState,
-			GameState nextState) {
+	public CheckeredTransitonState(GameStateManager gsm, GameState prevState, GameState nextState) {
 		super(gsm, prevState, nextState);
 
-		size = 20;
+		size = 50;
 		numRows = References.HEIGHT / size + 1;
 		numCols = References.WIDTH / size + 1;
 		sizes = new float[numRows][numCols];
@@ -58,8 +57,7 @@ public class CheckeredTransitonState extends TransitionState {
 				status = DONE_EXPANDING;
 				for (int row = 0; row < numRows; row++) {
 					for (int col = 0; col < numCols; col++) {
-						sizes[row][col] = ((numRows - row) + col) * delay
-								+ size;
+						sizes[row][col] = ((numRows - row) + col) * delay + size;
 					}
 				}
 				status = COLLAPSING;
@@ -100,10 +98,7 @@ public class CheckeredTransitonState extends TransitionState {
 					continue;
 				}
 				g.setColor(Color.BLACK);
-				g.fill(new Rectangle(
-						(int) (col * size + size / 2 - sizes[row][col] / 2),
-						(int) (row * size + size / 2 - sizes[row][col] / 2),
-						(int) sizes[row][col], (int) sizes[row][col]));
+				g.fill(new Rectangle((int) (col * size + size / 2 - sizes[row][col] / 2), (int) (row * size + size / 2 - sizes[row][col] / 2), (int) sizes[row][col], (int) sizes[row][col]));
 			}
 		}
 	}

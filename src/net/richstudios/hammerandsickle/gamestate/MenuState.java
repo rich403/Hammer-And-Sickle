@@ -10,48 +10,45 @@ import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.graphics.hud.Hud;
 import net.richstudios.hammerandsickle.graphics.hud.HudAction;
 import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
-import net.richstudios.hammerandsickle.graphics.hud.HudMainMenuButton;
+import net.richstudios.hammerandsickle.graphics.hud.HudSpecialButton;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
 public class MenuState extends GameState {
 
 	private Hud hud;
-	private static int menuX = References.WIDTH - (References.WIDTH / 20);
+
+	private final String[] btnNames = new String[] { "NEW GAME", "LOAD GAME", "HELP", "EXIT" };
+	private final HudAction[] btnActions = new HudAction[] { new HudAction() {
+		public void actionPerformed(HudComponent comp) {
+			newGame();
+		}
+	}, new HudAction() {
+		public void actionPerformed(HudComponent comp) {
+			loadGame();
+		}
+	}, new HudAction() {
+		public void actionPerformed(HudComponent comp) {
+			help();
+		}
+	}, new HudAction() {
+		public void actionPerformed(HudComponent comp) {
+			exit();
+		}
+	} };
 
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		Sound.loop("revolt");
-		HudMainMenuButton[] buttons = new HudMainMenuButton[4];
-		for (int i = 0; i < buttons.length; i++) {
-			buttons[i] = new HudMainMenuButton(menuX
-					- HudMainMenuButton.DEFAULT_WIDTH * 2, References.HEIGHT / 2
-					- HudMainMenuButton.DEFAULT_HEIGHT
-					+ (HudMainMenuButton.DEFAULT_HEIGHT * 2 + 2) * i, 2, i);
-		}
-		buttons[0].setAction(new HudAction() {
-			public void actionPerformed(HudComponent comp) {
-				newGame();
-			}
-		});
-		buttons[1].setAction(new HudAction() {
-			public void actionPerformed(HudComponent comp) {
-				loadGame();
-			}
-		});
-		buttons[2].setAction(new HudAction() {
-			public void actionPerformed(HudComponent comp) {
-				help();
-			}
-		});
-		buttons[3].setAction(new HudAction() {
-			public void actionPerformed(HudComponent comp) {
-				exit();
-			}
-		});
-
+		
 		hud = new Hud();
+		HudSpecialButton[] buttons = new HudSpecialButton[btnNames.length];
+		final int btnSize = 2;
+		final int btnWidth = HudSpecialButton.DEFAULT_WIDTH * btnSize;
+		final int btnHeight = HudSpecialButton.DEFAULT_HEIGHT * btnSize;
 		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new HudSpecialButton(References.WIDTH / 2 - btnWidth / 2, References.HEIGHT / 2 + (btnHeight + 2 * btnSize) * i, btnSize, btnNames[i]);
+			buttons[i].setAction(btnActions[i]);
 			hud.add(buttons[i]);
 		}
 	}
@@ -61,14 +58,12 @@ public class MenuState extends GameState {
 	}
 
 	private void loadGame() {
-		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this,
-				this);
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
 		gsm.set(cts);
 	}
 
 	private void help() {
-		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this,
-				this);
+		CheckeredTransitonState cts = new CheckeredTransitonState(gsm, this, this);
 		gsm.set(cts);
 	}
 
@@ -86,10 +81,11 @@ public class MenuState extends GameState {
 	}
 
 	public void draw(Graphics2D g) {
-		g.drawImage(Textures.getTexture("menubg"), 0, 0, null);
+		g.drawImage(Textures.getTexture("menubg"), 0, 0, References.WIDTH, References.HEIGHT, null);
 		BufferedImage title = Textures.getTexture("title");
-		g.drawImage(title, menuX - title.getWidth(), References.HEIGHT / 20,
-				null);
+		int titleWidth = title.getWidth() * 2;
+		int titleHeight = title.getHeight() * 2;
+		g.drawImage(title, References.WIDTH / 2 - titleWidth / 2, References.HEIGHT / 20, titleWidth, titleHeight, null);
 		hud.draw(g);
 	}
 

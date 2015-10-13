@@ -9,34 +9,27 @@ import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
-public class HudMainMenuButton extends HudComponent {
+public class HudSpecialButton extends HudComponent {
 
 	public static final int DEFAULT_WIDTH = 64, DEFAULT_HEIGHT = 13;
 
 	private static final int NORMAL = 0, HOVERED = 1, CLICKED = 2;
 	private int status;
 	private BufferedImage[] sprites;
-	private static final String[] btnText = new String[] {
-		"NEW GAME",
-		"LOAD GAME",
-		"HELP",
-		"EXIT"
-	};
 	private final String text;
 
-	public HudMainMenuButton(int x, int y, int id) {
-		this(x, y, 1, id);
+	public HudSpecialButton(int x, int y, String text) {
+		this(x, y, 1, text);
 	}
 
-	public HudMainMenuButton(int x, int y, int size, int id) {
+	public HudSpecialButton(int x, int y, int size, String text) {
 		super(x, y, DEFAULT_WIDTH * size, DEFAULT_HEIGHT * size, size);
 		this.status = NORMAL;
 		this.sprites = Textures.getSpriteSheet("mainMenuButton")[0];
-		this.text = btnText[id];
+		this.text = text;
 	}
 
-	public void update(int ox, int oy) {
-	}
+	public void update(int ox, int oy) {}
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		g.drawImage(sprites[status], x + ox, y + oy, width, height, null);
