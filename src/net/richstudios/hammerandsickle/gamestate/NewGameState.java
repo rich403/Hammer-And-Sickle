@@ -3,16 +3,16 @@ package net.richstudios.hammerandsickle.gamestate;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import net.richstudios.hammerandsickle.graphics.hud.HudBox;
-import net.richstudios.hammerandsickle.graphics.hud.HudButton;
 import net.richstudios.hammerandsickle.graphics.hud.Hud;
 import net.richstudios.hammerandsickle.graphics.hud.HudAction;
+import net.richstudios.hammerandsickle.graphics.hud.HudBox;
+import net.richstudios.hammerandsickle.graphics.hud.HudButton;
 import net.richstudios.hammerandsickle.graphics.hud.HudComponent;
+import net.richstudios.hammerandsickle.graphics.hud.HudDropList;
 import net.richstudios.hammerandsickle.graphics.hud.HudLabel;
-import net.richstudios.hammerandsickle.graphics.hud.HudScrollBar;
-import net.richstudios.hammerandsickle.graphics.hud.HudTextBox;
 import net.richstudios.hammerandsickle.graphics.hud.HudTextInput;
 import net.richstudios.hammerandsickle.reference.References;
+import net.richstudios.hammerandsickle.reference.References.Difficulty;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
 
 public class NewGameState extends GameState {
@@ -35,6 +35,7 @@ public class NewGameState extends GameState {
 	private HudButton btnCancel, btnGo;
 	private HudTextInput txtInName;
 	private HudLabel lblTitle;
+	private HudDropList dlDiffuculty;
 
 	private int x, y;
 	private float yStep = (References.HEIGHT - (float) FRAME_Y) / (CHANGE_TIME * (float) References.FPS);
@@ -56,12 +57,15 @@ public class NewGameState extends GameState {
 		addButtons(frame);
 		txtInName = new HudTextInput(2 * FRAME_SIZE, 12 * FRAME_SIZE, 20, "", FRAME_SIZE);
 		frame.add(txtInName);
+		dlDiffuculty = new HudDropList(2 * FRAME_SIZE, 14 * FRAME_SIZE + txtInName.getHeight() * FRAME_SIZE, 30, FRAME_SIZE);
+		dlDiffuculty.setList(Difficulty.values());
+		frame.add(dlDiffuculty);
 	}
 
 	private void addButtons(Hud frame) {
 		int buttonWidth = 8;
 		int buttonHeight = 4;
-		int buttonY = FRAME_HEIGHT * FRAME_SIZE * HudButton.SIZE - (buttonHeight * FRAME_SIZE + 3 * FRAME_SIZE) * HudBox.SIZE;
+		int buttonY = FRAME_HEIGHT * FRAME_SIZE * HudButton.SIZE - (buttonHeight * FRAME_SIZE + 4 * FRAME_SIZE) * HudBox.SIZE;
 		int buttonX = FRAME_WIDTH * FRAME_SIZE * HudButton.SIZE - (buttonWidth * FRAME_SIZE + 1 * FRAME_SIZE) * HudBox.SIZE;
 		btnCancel = new HudButton(buttonX, buttonY, buttonWidth, buttonHeight, "Back", FRAME_SIZE);
 		btnCancel.setAction(new HudAction() {

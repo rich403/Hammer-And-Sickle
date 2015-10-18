@@ -11,6 +11,8 @@ box,4,4
 textBox,4,4
 button,4,4
 textInput,4,12
+dropList,4,4
+dropListArrow
 -sprite-
 char,32,32
 grassland,16,16

@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import net.richstudios.hammerandsickle.audio.Sound;
 import net.richstudios.hammerandsickle.gamestate.GameStateManager;
 import net.richstudios.hammerandsickle.gamestate.LoadState;
-import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.reference.Settings;

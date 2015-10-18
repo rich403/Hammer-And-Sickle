@@ -1,21 +1,14 @@
 package net.richstudios.hammerandsickle.graphics.hud;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.KeyStroke;
-
-import net.richstudios.hammerandsickle.audio.Sound;
 import net.richstudios.hammerandsickle.graphics.GameFont;
 import net.richstudios.hammerandsickle.graphics.Textures;
 import net.richstudios.hammerandsickle.reference.References;
 import net.richstudios.hammerandsickle.utilites.InputHandler;
-import net.richstudios.hammerandsickle.utilites.StringUtils;
 
 public class HudTextInput extends HudComponent {
 
@@ -24,7 +17,7 @@ public class HudTextInput extends HudComponent {
 	private String text;
 	private boolean selected;
 
-	protected int aWidth, aHeight;
+	protected int aWidth;
 	protected BufferedImage[] sprites;
 	
 	private final String allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
@@ -37,8 +30,7 @@ public class HudTextInput extends HudComponent {
 		this.sprites = Textures.getSpriteSheet("textInput")[0];
 	}
 
-	public void update(int ox, int oy) {
-	}
+	public void update(int ox, int oy) {}
 
 	protected void draw(Graphics2D g, int ox, int oy) {
 		for (int x = 0; x < aWidth; x++) {
@@ -52,18 +44,19 @@ public class HudTextInput extends HudComponent {
 				g.drawImage(sprites[2], dx, dy, PEICE_WIDTH * size, PEICE_HEIGHT * size, null);
 		}
 
-		int tx = x + ox + 2 * size;
-		int ty = y + oy + 3 * size;
+		int tx = x + ox + (2 * size);
+		int ty = y + oy + (3 * size);
 		GameFont.render(text, g, tx, ty, size);
-		if (selected && (System.currentTimeMillis() % 1000 < 500)) {
-			int cx = (GameFont.getStringWidth(text, size) + tx) * size;
+		if (selected) {
+			int cx = GameFont.getStringWidth(text, size) + tx;
+			int ch = GameFont.HEIGHT * size - 1;
 			g.setColor(Color.YELLOW);
-			g.drawLine(cx, ty + GameFont.HEIGHT * size - 1, cx, ty * size);
+			g.drawLine(cx, ty - 1, cx, ty + ch);
 		}
 	}
 
 	private boolean isMouseInside(InputHandler input, int ox, int oy) {
-		return input.isMouseInside((x + ox) * References.SCALE, (y + oy) * References.SCALE, width * References.SCALE, height * References.SCALE);
+		return input.isMouseInside((x + ox) * References.SCALE, (y + oy) * References.SCALE, width * size * References.SCALE, height * size * References.SCALE);
 	}
 
 	private boolean[] keyChecked = new boolean[InputHandler.NUM_KEYS];
