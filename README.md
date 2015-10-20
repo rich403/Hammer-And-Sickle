@@ -3,7 +3,7 @@ A RTS game based loosely around the Soviet Union.
 
 # Planned:
 <ul>
-  <li>Add PlayState</li>
+  <li>Add PlayState [DONE]</li>
   <li>Add Characters
   	<ul style="list-style-type:square">
       <li>Workers</li>
@@ -27,7 +27,7 @@ A RTS game based loosely around the Soviet Union.
    </ul>
   </li>
   <li>Save/Load games</li>
-  <li>Randomly generated maps
+  <li>Randomly generated maps [¿DONE?]
   <ul style="list-style-type:square">
       <li>Water</li>
       <li>Hills</li>
